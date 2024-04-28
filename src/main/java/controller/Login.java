@@ -1,26 +1,32 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entites.Utilisateur;
 import modele.ModeleUser;
 
 /**
- * Servlet implementation class ServletAuth
+ * Servlet implementation class Login
  */
-@WebServlet("/ServletAuth")
-public class ServletAuth extends HttpServlet {
+@WebServlet("/Login")
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ModeleUser MUser = new ModeleUser();
+	private ModeleUser MUser = new ModeleUser();
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletAuth() {
+    public Login() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,16 +35,17 @@ public class ServletAuth extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		Utilisateur u = new Utilisateur();
-		u.setUsername(username);
-		u.setPassword(password);
-		MUser.setU(u);
+
+		MUser.setU(new Utilisateur(username, password));
 		if(MUser.login()) {
-			response.getWriter().append("Bien venu "+u.getUsername()+" : Auth Connected");
+			session.setAttribute("username", username);
+			response.sendRedirect("Home.jsp");
 		}else {
-			response.getWriter().append("Auth Not Connected");
+			response.sendRedirect("Login.jsp");
 		}
 	}
 

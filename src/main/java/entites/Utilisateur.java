@@ -5,6 +5,21 @@ public class Utilisateur {
 	private String username;
 	private String password;
 	
+	public Utilisateur() {
+		
+	}
+	
+	public Utilisateur(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+	
+	public Utilisateur(int id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+
 	public int getId() {
 		return id;
 	}

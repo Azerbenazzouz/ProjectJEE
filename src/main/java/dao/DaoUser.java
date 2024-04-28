@@ -19,15 +19,15 @@ public class DaoUser implements IDaoUser{
 			ps.setString(2, u.getPassword());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				ut = new Utilisateur();
-				ut.setId(rs.getInt(1));
-				ut.setUsername(rs.getString(2));
-				ut.setPassword(rs.getString(3));
+				ut = new Utilisateur(rs.getInt("id"), 
+					rs.getString("username"), 
+					rs.getString("password"));
 			}
+			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return ut;
 	}
 	

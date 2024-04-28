@@ -2,11 +2,17 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>ProjectJEE</display-name>
   <welcome-file-list>
-    <welcome-file>inde.html</welcome-file>
+    <!-- <welcome-file>inde.html</welcome-file>
     <welcome-file>inde.jsp</welcome-file>
     <welcome-file>inde.htm</welcome-file>
     <welcome-file>Login.html</welcome-file>
     <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.htm</welcome-file> -->
+    <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
+  <!-- Login Login.jsp -->
+  <!-- <servlet>
+    <servlet-name>Login</servlet-name>
+    <jsp-file>/Login.jsp</jsp-file>
+  </servlet> -->
 </web-app>
