@@ -27,6 +27,7 @@ public class Departement extends HttpServlet {
 
 	public void addDepartement(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
+		System.out.println("Departement");
 
 		String nom = request.getParameter("nom");
 		String info = request.getParameter("info");
@@ -103,10 +104,8 @@ public class Departement extends HttpServlet {
 			case "supprimer":
 				deleteDepartement(request, response);
 				break;
-			case "lister":
-				response.sendRedirect("ListeDepartement.jsp");
-				break;
 			default:
+				response.sendRedirect("ListeDepartement.jsp");
 				break;
 		}
 		
