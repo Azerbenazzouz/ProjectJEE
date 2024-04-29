@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*"%>
 <% 
 	String username = "";
+	String user_role = "";
 	if(session.getAttribute("username") != null) {
 		username = session.getAttribute("username").toString();
     }else{
@@ -79,8 +80,14 @@
 		</style>
 	</head>
 	<body>
+		
 		<div class="d-flex justify-content-between align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
 			<h4>Hello <%=username %></h3>
+			<ul class="nav nav-pills">
+				<li class="nav-item"><a class="nav-link" href="./Home.jsp">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="./ListeDepartement.jsp">Liste Departerments</a></li>
+				<li class="nav-item"><a class="nav-link" href="Users">Liste Salle</a></li>
+			</ul>
 			<a href="Logout">Logout</a>
 		</div>
 		
