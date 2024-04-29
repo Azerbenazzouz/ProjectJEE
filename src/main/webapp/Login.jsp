@@ -92,8 +92,11 @@
                                 <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Mot de passe"></div>
                                 <div class="mb-3"><button class="btn btn-success shadow d-block w-100" type="submit">Se connecter</button></div>
                             </form>
-                            <p class="text-muted">Forgot your password ?&nbsp;<a href="#">S'inscrire</a></p>
-                            <div><button class="btn btn-danger" type="button"><i class="fab fa-google"></i>&nbsp;Connectez-vous avec Google&nbsp;</button></div>
+                            <div>
+								<a class="btn btn-danger" type="button" href="./Register.jsp">
+									S'inscrire
+								</a>
+							</div>
                         </div>
                     </div>
                 </div>

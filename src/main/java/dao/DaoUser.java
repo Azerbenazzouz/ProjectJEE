@@ -10,6 +10,7 @@ import utilitaire.SingletonConnexion;
 
 public class DaoUser implements IDaoUser{
 	private Connection con = SingletonConnexion.getConnection();
+	
 	@Override
 	public Utilisateur getUtilisateur(Utilisateur u) {
 		Utilisateur ut = null;
@@ -29,6 +30,23 @@ public class DaoUser implements IDaoUser{
 			e.printStackTrace();
 		}
 		return ut;
+	}
+
+	@Override
+	public Utilisateur setUtilisateur(Utilisateur u){
+		Utilisateur ut;
+		try {
+			PreparedStatement ps = con.prepareStatement("insert into utilisateur(username, password) values(?,?)");
+			ps.setString(1, u.getUsername());
+			ps.setString(2, u.getPassword());
+			ps.executeUpdate();
+			ps.close();
+			ut = getUtilisateur(u);
+			return ut;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

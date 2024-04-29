@@ -24,4 +24,11 @@ public class ModeleUser {
 		return false;
 	}
 	
+	public boolean register() {
+		DaoUser d = new DaoUser();
+		Utilisateur ut = d.setUtilisateur(u);
+		if(ut==null) return false;
+		return this.login();
+	}
+	
 }
