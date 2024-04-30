@@ -13,7 +13,7 @@ import modele.ModeleDepartement;
 /**
  * Servlet implementation class Departement
  */
-@WebServlet("/Departement")
+@WebServlet("/Departements")
 public class Departement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private ModeleDepartement MDepartement = new ModeleDepartement();
@@ -27,6 +27,15 @@ public class Departement extends HttpServlet {
 
 	public void addDepartement(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("username")== null) {
+			try {
+				response.sendRedirect("Login.jsp");
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
 		System.out.println("Departement");
 
 		String nom = request.getParameter("nom");
@@ -91,7 +100,9 @@ public class Departement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
+		if(session.getAttribute("username")== null) {
+			response.sendRedirect("Login.jsp");
+		}
 		String etat = request.getParameter("etat");
 
 		switch (etat) {

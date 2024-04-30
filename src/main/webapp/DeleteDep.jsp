@@ -111,8 +111,10 @@
                                 }
                             %>
                             <h5 class="card-title text-muted text-uppercase text-center mb-4">Supprimer Departement <span class="text-danger"><%=DepNom %></span></h5>
-                            <form action="Departement" method="post">
-                                <input type="hidden" name="action" value="delete">
+                            <form action="ServletAuth" method="post">
+                                <input type="hidden" name="etat" value="supprimer">
+                                <input type="hidden" name="id" value="<%=id %>">
+                                
                                 <div class="form-group mb-4 d-flex  justify-content-end align-items-center">
                                     <button type="submit" class="btn btn-primary btn-block me-3">Supprimer</button>
                                     <a href="./ListeDepartement.jsp" class="btn btn-secondary btn-block">Annuler</a>

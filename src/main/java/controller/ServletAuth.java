@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import entites.Utilisateur;
+import modele.ModeleDepartement;
 import modele.ModeleUser;
 
 /**
@@ -16,7 +18,9 @@ import modele.ModeleUser;
 @WebServlet("/ServletAuth")
 public class ServletAuth extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ModeleUser MUser = new ModeleUser();
+    // private ModeleUser MUser = new ModeleUser();
+	private ModeleDepartement MDepartement = new ModeleDepartement();
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -24,22 +28,73 @@ public class ServletAuth extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		Utilisateur u = new Utilisateur();
-		u.setUsername(username);
-		u.setPassword(password);
-		MUser.setU(u);
-		if(MUser.login()) {
-			response.getWriter().append("Bien venu "+u.getUsername()+" : Auth Connected");
-		}else {
-			response.getWriter().append("Auth Not Connected");
+		HttpSession session = request.getSession();
+
+		if(session.getAttribute("username")== null) {
+			response.sendRedirect("Login.jsp");
 		}
+		String etat = request.getParameter("etat");
+
+		switch (etat) {
+			case "ajouter":				
+				System.out.println("Ajout");
+				
+				MDepartement.setD(new entites.Departement(request.getParameter("nom"), request.getParameter("info"), request.getParameter("image")));
+				try {
+					if(MDepartement.addDepartement()) {
+						if(session.getAttribute("Error")!= null) session.removeAttribute("Error");
+						response.sendRedirect("ListeDepartement.jsp");
+					}else {
+						session.setAttribute("Error", "Erreur lors de l'ajout du departement");
+						response.sendRedirect("Error.jsp");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "modifier":
+				MDepartement.setD(new entites.Departement(
+					Integer.parseInt(request.getParameter("id")),
+					request.getParameter("nom"), 
+					request.getParameter("info"), 
+					request.getParameter("image"))
+				);
+				System.out.println(MDepartement.getD().getId()+" "+MDepartement.getD().getNom()+" "+MDepartement.getD().getInfo()+" "+MDepartement.getD().getImage());
+				try {
+					if(MDepartement.updateDepartement()) {
+						if(session.getAttribute("Error")!= null) session.removeAttribute("Error");
+						response.sendRedirect("ListeDepartement.jsp");
+					}else {
+						session.setAttribute("Error", "Erreur lors de la modification du departement");
+						response.sendRedirect("Error.jsp");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			case "supprimer":			
+				try {
+					if(MDepartement.deleteDepartement(Integer.parseInt(request.getParameter("id")))) {
+						if(session.getAttribute("Error")!= null) session.removeAttribute("Error");
+						response.sendRedirect("ListeDepartement.jsp");
+					}else {
+						session.setAttribute("Error", "Erreur lors de la suppression du departement");
+						response.sendRedirect("Error.jsp");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			default:
+				response.sendRedirect("ListeDepartement.jsp");
+				break;
+		}
+		
+
 	}
 
 	/**

@@ -24,7 +24,7 @@ public class DaoDepartement implements IDaoDepartement {
                 d = new Departement(
                     rs.getInt("id"), 
                     rs.getString("nom"), 
-                    rs.getString("description"),
+                    rs.getString("info"),
                     rs.getString("image")
                 );
             }
@@ -37,28 +37,26 @@ public class DaoDepartement implements IDaoDepartement {
     }
 
     @Override
-    public Departement addDepartement(Departement d) {
-        Departement dt;
+    public boolean addDepartement(Departement d) {
         try {
-            PreparedStatement ps = con.prepareStatement("insert into departement(nom, description, image) values(?,?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into departement(nom, info, image) values(?,?,?)");
             ps.setString(1, d.getNom());
             ps.setString(2, d.getInfo());
             ps.setString(3, d.getImage());
-            ps.executeUpdate();
+            ps.execute();
             ps.close();
-            dt = getDepartementById(d.getId());
-            return dt;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     @Override
-    public Departement updateDepartement(Departement d) {
+    public boolean updateDepartement(Departement d) {
         Departement dt;
         try {
-            PreparedStatement ps = con.prepareStatement("update departement set nom=?, description=?, image=? where id=?");
+            PreparedStatement ps = con.prepareStatement("update departement set nom=?, info=?, image=? where id=?");
             ps.setString(1, d.getNom());
             ps.setString(2, d.getInfo());
             ps.setString(3, d.getImage());
@@ -66,11 +64,11 @@ public class DaoDepartement implements IDaoDepartement {
             ps.executeUpdate();
             ps.close();
             dt = getDepartementById(d.getId());
-            return dt;
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     @Override
@@ -97,7 +95,7 @@ public class DaoDepartement implements IDaoDepartement {
                 list.add(new Departement(
                     rs.getInt("id"), 
                     rs.getString("nom"), 
-                    rs.getString("description"),
+                    rs.getString("info"),
                     rs.getString("image")
                 ));
             }

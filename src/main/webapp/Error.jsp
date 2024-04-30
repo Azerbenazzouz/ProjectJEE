@@ -3,8 +3,10 @@
 <% 
 	String username = "";
 	String user_role = "ROLE_ADMIN";
+    String ErrorMsg = "";
 	if(session.getAttribute("username") != null) {
 		username = session.getAttribute("username").toString();
+        ErrorMsg = request.getParameter("Error");
     }else{
 		response.sendRedirect("Home.jsp");
 	}
@@ -13,7 +15,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Supprimer departement</title>
+    <title>Error</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&amp;display=swap">
@@ -81,7 +83,6 @@
     </style>
 </head>
 <body>
-    <!-- NavBar -->
     <div class="d-flex justify-content-between align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
         <h4>Hello <%=username %></h3>
         <ul class="nav nav-pills">
@@ -92,32 +93,20 @@
         <a href="Logout">Logout</a>
     </div>
 
-    <!-- Ajouter Departement -->
-    <section class="py-5">
+    <section class="pricing py-5">
         <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-4">
                     <div class="card mb-5 mb-lg-0">
                         <div class="card-body">
-                            <h5 class="card-title text-muted text-uppercase text-center mb-4">Ajouter Departement</h5>
-                            <form action="ServletAuth" method="post">
-                                <div class="form-group mb-3">
-                                    <input type="text" name="nom" class="form-control" placeholder="Nom du departement" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="text" name="info" class="form-control" placeholder="Information" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="text" name="image" class="form-control" placeholder="Image" required>
-                                </div>
-                                <input type="hidden" name="etat" value="ajouter">
-                                <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
-                            </form>
+                            <h5 class="card-title text-muted text-uppercase text-center">Error</h5>
+                            <h6 class="card-price text-center"><%=ErrorMsg %></h6>
+                            <hr>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section>                            
 </body>
 </html>

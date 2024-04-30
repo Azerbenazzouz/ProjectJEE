@@ -18,16 +18,12 @@ public class ModeleDepartement {
 
     public boolean addDepartement() {
         DaoDepartement daoDepartement = new DaoDepartement();
-        Departement departement = daoDepartement.addDepartement(d);
-        if (departement == null) return false;
-        return true;
+        return daoDepartement.addDepartement(d);
     }
 
     public boolean updateDepartement() {
         DaoDepartement daoDepartement = new DaoDepartement();
-        Departement departement = daoDepartement.updateDepartement(d);
-        if (departement == null) return false;
-        return true;
+        return daoDepartement.updateDepartement(d);
     }
 
     public boolean deleteDepartement(int d) {

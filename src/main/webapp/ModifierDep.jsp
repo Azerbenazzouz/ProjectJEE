@@ -115,7 +115,9 @@
                                     dep.setImage(rs.getString("image"));
                                 }
                             %>
-                            <form action="Departement" method="post">
+                            
+                            <form action="ServletAuth" method="post">
+                                <input type="hidden" name="id" value="<%=dep.getId()%>">
                                 <div class="form-group mb-3">
                                     <input type="text" name="nom" class="form-control" placeholder="Nom du departement" required value="<%=dep.getNom()%>">
                                 </div>
