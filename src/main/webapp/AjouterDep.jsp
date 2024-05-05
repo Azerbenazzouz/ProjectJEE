@@ -110,6 +110,27 @@
                                 <div class="form-group mb-3">
                                     <input type="text" name="image" class="form-control" placeholder="Image" required>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <select class="form-select" name="chef" aria-label="Default select example">
+                                        <option selected>Selectionner Chef</option>
+                                        <%
+                                            try {
+                                                Class.forName("com.mysql.cj.jdbc.Driver");
+                                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee2", "root", "");
+                                                Statement stmt = con.createStatement();
+                                                ResultSet rs = stmt.executeQuery("SELECT * FROM utilisateur WHERE role='ROLE_PROF'");
+                                                while (rs.next()) {
+                                        %>
+                                                    <option value="<%=rs.getString("id") %>"><%=rs.getString("username") %></option>
+                                        <%
+                                                }
+                                                con.close();
+                                            } catch (Exception e) {
+                                                out.println(e);
+                                            }
+                                        %>
+                                    </select>
+                                </div>
                                 <input type="hidden" name="etat" value="ajouter">
                                 <button type="submit" class="btn btn-primary btn-block">Ajouter</button>
                             </form>

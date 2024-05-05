@@ -118,7 +118,7 @@
                 <%
                     try {
                         Class.forName("com.mysql.cj.jdbc.Driver");
-                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee", "root", "");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee2", "root", "");
                         Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery("select * from departement");
                         while (rs.next()) {

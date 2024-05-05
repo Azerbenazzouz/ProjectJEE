@@ -5,6 +5,7 @@ public class Departement {
     private String nom;
     private String info;
     private String image;
+    private int chef = 0;
 
     public Departement() {
     }
@@ -14,12 +15,27 @@ public class Departement {
         this.info = info;
         this.image = image;
     }
-
+    
+    public Departement(String nom, String info, String image, int chef) {
+        this.nom = nom;
+        this.info = info;
+        this.image = image;
+        this.chef = chef;
+    }
+    
     public Departement(int id, String nom, String info, String image) {
         this.id = id;
         this.nom = nom;
         this.info = info;
         this.image = image;
+    }
+
+    public Departement(int id, String nom, String info, String image, int chef) {
+        this.id = id;
+        this.nom = nom;
+        this.info = info;
+        this.image = image;
+        this.chef = chef;
     }
 
     public int getId() {
@@ -54,4 +70,11 @@ public class Departement {
         this.image = image;
     }
     
+    public int getChef() {
+        return chef;
+    }
+
+    public void setChef(int chef) {
+        this.chef = chef;
+    }
 }

@@ -4,7 +4,8 @@ public class Utilisateur {
 	private int id;
 	private String username;
 	private String password;
-	
+	private String role;
+
 	public Utilisateur() {
 		
 	}
@@ -13,11 +14,24 @@ public class Utilisateur {
 		this.username = username;
 		this.password = password;
 	}
+
+	public Utilisateur(String username, String password, String role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 	
 	public Utilisateur(int id, String username, String password) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+	}
+
+	public Utilisateur(int id, String username, String password, String role) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
 	}
 
 	public int getId() {
@@ -39,5 +53,11 @@ public class Utilisateur {
 		this.password = password;
 	}
 	
-	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 }

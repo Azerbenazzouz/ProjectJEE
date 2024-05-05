@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entites.Utilisateur;
+import entites.Departement;
 import modele.ModeleDepartement;
 import modele.ModeleUser;
 
@@ -39,11 +40,16 @@ public class ServletAuth extends HttpServlet {
 		}
 		String etat = request.getParameter("etat");
 
+		// get all parameters from the form
+		// for (String key : request.getParameterMap().keySet()) {
+		// 	System.out.println(key + " : " + request.getParameter(key));
+		// }
+
 		switch (etat) {
 			case "ajouter":				
 				System.out.println("Ajout");
-				
-				MDepartement.setD(new entites.Departement(request.getParameter("nom"), request.getParameter("info"), request.getParameter("image")));
+				int chefId = Integer.parseInt(request.getParameter("chef"));
+				MDepartement.setD(new Departement(request.getParameter("nom"), request.getParameter("info"), request.getParameter("image"), chefId));
 				try {
 					if(MDepartement.addDepartement()) {
 						if(session.getAttribute("Error")!= null) session.removeAttribute("Error");
@@ -57,7 +63,7 @@ public class ServletAuth extends HttpServlet {
 				}
 				break;
 			case "modifier":
-				MDepartement.setD(new entites.Departement(
+				MDepartement.setD(new Departement(
 					Integer.parseInt(request.getParameter("id")),
 					request.getParameter("nom"), 
 					request.getParameter("info"), 

@@ -36,9 +36,10 @@ public class DaoUser implements IDaoUser{
 	public Utilisateur setUtilisateur(Utilisateur u){
 		Utilisateur ut;
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into utilisateur(username, password) values(?,?)");
+			PreparedStatement ps = con.prepareStatement("insert into utilisateur(username, password, role) values(?,?,?)");
 			ps.setString(1, u.getUsername());
 			ps.setString(2, u.getPassword());
+			ps.setString(3, u.getRole());
 			ps.executeUpdate();
 			ps.close();
 			ut = getUtilisateur(u);

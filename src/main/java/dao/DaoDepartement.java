@@ -25,7 +25,8 @@ public class DaoDepartement implements IDaoDepartement {
                     rs.getInt("id"), 
                     rs.getString("nom"), 
                     rs.getString("info"),
-                    rs.getString("image")
+                    rs.getString("image"),
+                    Integer.parseInt(rs.getString("chef"))
                 );
             }
             rs.close();
@@ -39,10 +40,11 @@ public class DaoDepartement implements IDaoDepartement {
     @Override
     public boolean addDepartement(Departement d) {
         try {
-            PreparedStatement ps = con.prepareStatement("insert into departement(nom, info, image) values(?,?,?)");
+            PreparedStatement ps = con.prepareStatement("insert into departement(nom, info, image, chef) values(?,?,?,?)");
             ps.setString(1, d.getNom());
             ps.setString(2, d.getInfo());
             ps.setString(3, d.getImage());
+            ps.setInt(4, d.getChef());
             ps.execute();
             ps.close();
             return true;
@@ -96,7 +98,8 @@ public class DaoDepartement implements IDaoDepartement {
                     rs.getInt("id"), 
                     rs.getString("nom"), 
                     rs.getString("info"),
-                    rs.getString("image")
+                    rs.getString("image"),
+                    Integer.parseInt(rs.getString("chef"))
                 ));
             }
             rs.close();

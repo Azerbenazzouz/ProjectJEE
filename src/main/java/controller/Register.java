@@ -34,9 +34,10 @@ public class Register extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String role = "ROLE_USER";
 		
 		
-		MUser.setU(new Utilisateur(username, password));
+		MUser.setU(new Utilisateur(username, password , role));
 		if(MUser.register()) {
 			session.setAttribute("username", username);
 			response.sendRedirect("Home.jsp");
