@@ -97,6 +97,7 @@
 				<tr class="table-dark">
 					<th>Id</th>
 					<th>Nom Utilisateur</th>
+					<th>Role</th>
 				</tr>
 				<%
 					Class.forName("com.mysql.cj.jdbc.Driver");
@@ -110,6 +111,7 @@
 					<tr class="table-light">
 						<td><%=rs.getInt(1) %></td>
 						<td><%=rs.getString(2) %></td>
+						<td><%=rs.getString(4) %></td>
 					</tr>
 				<%
 					}

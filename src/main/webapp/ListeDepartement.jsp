@@ -2,9 +2,22 @@
 <%@ page import="java.sql.*"%>
 <% 
 	String username = "";
-	String user_role = "ROLE_ADMIN";
+	String user_role = "";
+    
 	if(session.getAttribute("username") != null) {
 		username = session.getAttribute("username").toString();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee2", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select role from utilisateur where username = '" + username + "';");
+            while (rs.next()) {
+                user_role = rs.getString("role");
+                System.out.println(user_role);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }else{
 		response.sendRedirect("Login.jsp");
 	}
@@ -98,7 +111,7 @@
             <div class="row">
                 <div class="col-lg-12 d-flex justify-content-between align-items-center mb-5">
                     <h2 class="text-center">Liste des departements</h2>
-                    <% if (user_role == "ROLE_ADMIN") {%>
+                    <% if (user_role.equals("ROLE_ADMIN")) {%>
                         <a href="./AjouterDep.jsp" class="btn btn-success">Ajouter un departement</a>
                     <% } %>
                 </div>
