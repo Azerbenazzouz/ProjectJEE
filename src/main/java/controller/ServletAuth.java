@@ -25,7 +25,6 @@ public class ServletAuth extends HttpServlet {
      */
     public ServletAuth() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

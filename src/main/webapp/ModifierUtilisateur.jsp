@@ -129,7 +129,7 @@
                                 }
                             %>
                             
-                            <form action="ServletAuth" method="post">
+                            <form action="User" method="post">
                                 <input type="hidden" name="id" value="<%=user.getId()%>">
                                 <div class="form-group mb-3">
                                     <input type="text" name="nom" class="form-control" placeholder="Nom du Utilisateur" required value="<%=user.getUsername()%>">

@@ -1,10 +1,25 @@
 <%@ page language="java"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="entites.Utilisateur"%>
 <% 
 	String username = "";
-	String user_role = "ROLE_ADMIN";
+	String user_role = "";
 	if(session.getAttribute("username") != null) {
 		username = session.getAttribute("username").toString();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee2", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select role from utilisateur where username = '" + username + "';");
+            while (rs.next()) {
+                user_role = rs.getString("role");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(!user_role.equals("ROLE_ADMIN")){
+            response.sendRedirect("Home.jsp");
+        }
     }else{
 		response.sendRedirect("Home.jsp");
 	}

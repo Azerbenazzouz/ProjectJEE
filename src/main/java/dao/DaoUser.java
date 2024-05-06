@@ -50,4 +50,61 @@ public class DaoUser implements IDaoUser{
 		return null;
 	}
 	
+	@Override
+	public boolean deleteUtilisateur(int id) {
+		try {
+			PreparedStatement ps = con.prepareStatement("delete from utilisateur where id=?");
+			ps.setInt(1, id);
+			ps.execute();
+			ps.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	// Update user Name and Role
+	@Override
+	public boolean updateUtilisateur(Utilisateur u) {
+		Utilisateur ut;
+		try {
+			PreparedStatement ps = con.prepareStatement("update utilisateur set username=?, role=? where id=?");
+			ps.setString(1, u.getUsername());
+			ps.setString(2, u.getRole());
+			ps.setInt(3, u.getId());
+			ps.executeUpdate();
+			ps.close();
+			ut = getUtilisateur(u);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean updatePassword(int id, String password, String newPassword) {
+		try {
+			PreparedStatement ps = con.prepareStatement("select password from utilisateur where id=?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				if(rs.getString("password").equals(password)) {
+					try {
+						ps = con.prepareStatement("update utilisateur set password=? where id=?");
+						ps.setString(1, newPassword);
+						ps.setInt(2, id);
+						ps.executeUpdate();
+						ps.close();
+						return true;
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

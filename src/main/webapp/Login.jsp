@@ -1,3 +1,10 @@
+<%@ page language="java"%>
+<% 
+	String username = "";
+	if(session.getAttribute("username") != null) {
+		response.sendRedirect("Home.jsp");
+	}
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
