@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import entites.Utilisateur;
 import entites.Departement;
 import modele.ModeleDepartement;
-import modele.ModeleUser;
 
 /**
  * Servlet implementation class ServletAuth
