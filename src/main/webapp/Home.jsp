@@ -3,8 +3,20 @@
 <% 
 	String username = "";
 	String user_role = "";
+    
 	if(session.getAttribute("username") != null) {
 		username = session.getAttribute("username").toString();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee2", "root", "");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select role from utilisateur where username = '" + username + "';");
+            while (rs.next()) {
+                user_role = rs.getString("role");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }else{
 		response.sendRedirect("Login.jsp");
 	}
@@ -98,6 +110,9 @@
 					<th>Id</th>
 					<th>Nom Utilisateur</th>
 					<th>Role</th>
+					<% if (user_role.equals("ROLE_ADMIN")) {%>
+						<th scope="col">Action</th>
+					<% } %>
 				</tr>
 				<%
 					Class.forName("com.mysql.cj.jdbc.Driver");
@@ -112,6 +127,12 @@
 						<td><%=rs.getInt(1) %></td>
 						<td><%=rs.getString(2) %></td>
 						<td><%=rs.getString(4) %></td>
+						<% if (user_role.equals("ROLE_ADMIN")) {%>
+							<td>
+								<a href="./ModifierUtilisateur.jsp?id=<%=rs.getInt("id") %>" class="btn btn-primary">Edit</a>
+								<a href="./DeleteUtilisateur.jsp?id=<%=rs.getInt("id") %>" class="btn btn-danger">Delete</a>
+							</td>
+						<% }%>
 					</tr>
 				<%
 					}

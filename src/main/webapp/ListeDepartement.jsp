@@ -13,7 +13,6 @@
             ResultSet rs = stmt.executeQuery("select role from utilisateur where username = '" + username + "';");
             while (rs.next()) {
                 user_role = rs.getString("role");
-                System.out.println(user_role);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +121,7 @@
                             <th scope="col">Nom</th>
                             <th scope="col">Info</th>
                             <th scope="col">Image</th>
-                            <% if (user_role == "ROLE_ADMIN") {%>
+                            <% if (user_role.equals("ROLE_ADMIN")) {%>
                             <th scope="col">Action</th>
                             <% } %>
                         </tr>
@@ -141,7 +140,7 @@
                                 <td><%=rs.getString("nom") %></td>
                                 <td><%=rs.getString("info") %></td>
                                 <td><img src="<%=rs.getString("image") %>" alt="image" width="100" height="100"></td>
-                                <% if (user_role == "ROLE_ADMIN") {%>
+                                <% if (user_role.equals("ROLE_ADMIN")) {%>
                                 <td>
                                     <a href="./ModifierDep.jsp?id=<%=rs.getInt("id") %>" class="btn btn-primary">Edit</a>
                                     <a href="./DeleteDep.jsp?id=<%=rs.getInt("id") %>" class="btn btn-danger">Delete</a>

@@ -1,6 +1,6 @@
 <%@ page language="java"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="entites.Departement"%>
+<%@ page import="entites.Utilisateur"%>
 <% 
 	String username = "";
 	String user_role = "";
@@ -114,32 +114,28 @@
                 <div class="col-lg-6">
                     <div class="card mb-5 mb-lg-0">
                         <div class="card-body">
-                            <h5 class="card-title text-muted text-uppercase text-center mb-4">Modifier Departement</h5>
+                            <h5 class="card-title text-muted text-uppercase text-center mb-4">Modifier Utilisateur</h5>
                             <%
                                 String id = request.getParameter("id");
                                 Class.forName("com.mysql.cj.jdbc.Driver");
                                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbjee2", "root", "");
                                 Statement stmt = con.createStatement();
-                                ResultSet rs = stmt.executeQuery("select * from departement where id = "+id);
-                                Departement dep = new Departement();
+                                ResultSet rs = stmt.executeQuery("select * from utilisateur where id = "+id);
+                                Utilisateur user = new Utilisateur();
                                 if(rs.next()){
-                                    dep.setId(rs.getInt("id"));
-                                    dep.setNom(rs.getString("nom"));
-                                    dep.setInfo(rs.getString("info"));
-                                    dep.setImage(rs.getString("image"));
+                                    user.setId(rs.getInt("id"));
+                                    user.setUsername(rs.getString("username"));
+                                    user.setRole(rs.getString("role"));
                                 }
                             %>
                             
                             <form action="ServletAuth" method="post">
-                                <input type="hidden" name="id" value="<%=dep.getId()%>">
+                                <input type="hidden" name="id" value="<%=user.getId()%>">
                                 <div class="form-group mb-3">
-                                    <input type="text" name="nom" class="form-control" placeholder="Nom du departement" required value="<%=dep.getNom()%>">
+                                    <input type="text" name="nom" class="form-control" placeholder="Nom du Utilisateur" required value="<%=user.getUsername()%>">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <input type="text" name="info" class="form-control" placeholder="Information" required value="<%=dep.getInfo()%>">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <input type="text" name="image" class="form-control" placeholder="Image" required value="<%=dep.getImage()%>">
+                                    <input type="text" name="role" class="form-control" placeholder="Role" required value="<%=user.getRole()%>">
                                 </div>
                                 <input type="hidden" name="etat" value="modifier">
                                 <button type="submit" class="btn btn-primary btn-block">Modifier</button>

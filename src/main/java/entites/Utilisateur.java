@@ -1,5 +1,8 @@
 package entites;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Utilisateur {
 	private int id;
 	private String username;
@@ -12,15 +15,15 @@ public class Utilisateur {
 	
 	public Utilisateur(String username, String password) {
 		this.username = username;
-		this.password = password;
+		this.password = hashMotDePasse(password);
 	}
 
 	public Utilisateur(String username, String password, String role) {
 		this.username = username;
-		this.password = password;
+		this.password = hashMotDePasse(password);
 		this.role = role;
 	}
-	
+	// Get Dont Need To HashPassword
 	public Utilisateur(int id, String username, String password) {
 		this.id = id;
 		this.username = username;
@@ -30,7 +33,13 @@ public class Utilisateur {
 	public Utilisateur(int id, String username, String password, String role) {
 		this.id = id;
 		this.username = username;
-		this.password = password;
+		this.password = hashMotDePasse(password);
+		this.role = role;
+	}
+
+	public Utilisateur(String username, String role , int id) {
+		this.id = id;
+		this.username = username;
 		this.role = role;
 	}
 
@@ -50,7 +59,7 @@ public class Utilisateur {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = hashMotDePasse(password);
 	}
 	
 	public String getRole() {
@@ -60,4 +69,23 @@ public class Utilisateur {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public String hashMotDePasse(String motDePasse){
+        try{
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(motDePasse.getBytes());
+            byte[] digest = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for(byte b : digest){
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        }catch(NoSuchAlgorithmException e){
+            System.out.println(e.getMessage());
+        }
+        return "";
+    }
 }

@@ -18,7 +18,6 @@ public class ModeleUser {
 	public boolean login() {
 		DaoUser d=new DaoUser();
 		Utilisateur ut = d.getUtilisateur(u);
-		System.out.println(ut);
 		if(ut==null) return false;
 		if(u.getUsername().equals(ut.getUsername()) && u.getPassword().equals(ut.getPassword())) return true;
 		return false;
